@@ -1158,6 +1158,24 @@ Hyperthreading-aware CPU manager policy in {product-title} is now available with
 
 You can now use the Topology Aware Lifecycle Operator to perform updates on multiple single node Openshift (SNO) clusters by using {rh-rhacm-first} policies. From {product-title} {product-version}, TALO is available in the OperatorHub. For more information, see xref:../scalability_and_performance/cnf-talo-for-cluster-upgrades.html#cnf-about-topology-aware-lifecycle-operator-config_cnf-topology-aware-lifecycle-operator[About the Topology Aware Lifecycle Operator configuration].
 
+[id="ocp-4-10-6-enhancements-iod"]
+==== Indication of done for ZTP
+
+A new tool is available that simplifies the process of checking for a completed zero touch provisioning (ZTP) installation using the {rh-rhacm-first} static validator inform policy. It provides an Indication of done for ZTP installations by capturing the criteria for a completed installation and validating that it moves to a compliant state only when ZTP provisioning of the spoke cluster is complete.
+
+This policy can be used for deployments of single node clusters, three-node clusters, and standard clusters.
+To learn more about the validator inform policy, see xref:../modules/ztp-definition-of-done-for-ztp-installations.adoc[Indication of done]
+
+[id="ocp-4-10-6-enhancements-ztp"]
+==== Enhancements to ZTP
+
+For {product-title} {product-version}, there are a number of updates that make it easier to configure the hub cluster and generate source CRs. New PTP and UEFI secure boot features for spoke clusters are also available. A summary of these features is below:
+
+* You can add or modify existing source CRs in the `ztp-site-generate` container, rebuild it, and make it available to the hub cluster, typically from the disconnected registry associated with the hub cluster.
+* You can configure PTP fast events for vRAN clusters that are deployed using the GitOps zero touch provisioning (ZTP) pipeline.
+* You can configure UEFI secure boot for vRAN clusters that are deployed using the GitOps ZTP pipeline.
+* You can use Topology Aware Lifecycle Operator (TALO) to orchestrate the application of the configuration CRs to the hub cluster.
+
 [id="ocp-4-10-backup-and-restore"]
 === Backup and restore
 
