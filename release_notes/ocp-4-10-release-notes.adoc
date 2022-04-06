@@ -1176,6 +1176,26 @@ For {product-title} {product-version}, there are a number of updates that make i
 * You can configure UEFI secure boot for vRAN clusters that are deployed using the GitOps ZTP pipeline.
 * You can use Topology Aware Lifecycle Operator (TALO) to orchestrate the application of the configuration CRs to the hub cluster.
 
+[id="ocp-4-10-6-enhancements-ztp"]
+==== ZTP support for multicluster deployment
+
+Zero touch provisioning (ZTP) provides support for multicluster deployment, including single node clusters, three-node clusters, and standard OpenShift clusters. This includes the installation of OpenShift and deployment of the distributed units (DUs) at scale. This gives you the ability to deploy nodes with master, worker, and master and worker roles.
+ZTP multinode support is implemented through the use of `SiteConfig` and `PolicyGenTemplate` custom resources (CRs). The overall flow is identical to the ZTP support for single node clusters, with some differentiation in configuration depending on the type of cluster:
+
+In the `SiteConfig` file:
+
+    * Single node clusters must have exactly one entry in the `nodes` section.
+    * Three-node clusters must have exactly three entries defined in the `nodes` section.
+    * Standard OpenShift clusters must have exactly three entries in the `nodes` section with role: master and one or more additional entries with role: worker.
+
+The `PolicyGenTemplate` file tells the Policy Generator where to categorize the generated policies. Example `PolicyGenTemplate` files provide you with example files to simplify your deployments: 
+
+* The example common `PolicyGenTemplate` file is common across all types of clusters.
+* Example group `PolicyGenTemplate` files for single node, three-node, and standard clusters are provided.
+* Site-specific `PolicyGenTemplate` files specific to each site are provided.
+
+To learn more about multicluster deployment, see xref:../modules/ztp-deploying-a-site.adoc[Deploying a site]
+
 [id="ocp-4-10-backup-and-restore"]
 === Backup and restore
 
