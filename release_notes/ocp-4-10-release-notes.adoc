@@ -2737,7 +2737,8 @@ supports-priv-flags: yes
 +
 (link:https://bugzilla.redhat.com/show_bug.cgi?id=2050994[*BZ#2050994*])
 
-* During a spoke cluster upgrade from 4.9 to 4.10, with heavy workload running, the `kube-apiserver` pod can take longer than the expected time to start. As a result, the upgrade does not complete and the `kube-apiserver` rolls back to the previous version. (link:https://bugzilla.redhat.com/show_bug.cgi?id=2064024[*BZ#2064024*])
+* During a spoke cluster upgrade from 4.9 to 4.10, with heavy workload running, the `kube-apiserver` pod can take longer than the expected time to start. As a result, the upgrade does not complete and the `kube-apiserver` rolls back to the previous version.
+(link:https://bugzilla.redhat.com/show_bug.cgi?id=2064024[*BZ#2064024*])
 
 [id="ocp-4-10-asynchronous-errata-updates"]
 == Asynchronous errata updates
