@@ -2610,7 +2610,7 @@ and recreate it without a BFD profile. (link:https://bugzilla.redhat.com/show_bu
 * Deploying a single node Openshift cluster for vRAN Distributed Units can take up to 4 hours.
 (link:https://bugzilla.redhat.com/show_bug.cgi?id=2035036[*BZ#2035036*])
 
-* Currently, you can add a `managedPolicy` in a `ClusterGroupUpgrade` manifest that is already enforced. This should not be possible.
+* Currently, if an {rh-rhacm} policy was enforced to a target cluster, you can create a `ClusterGroupUpgrade` CR including that enforced policy again as a `managedPolicy` to the same target cluster. This should not be possible.
 (link:https://bugzilla.redhat.com/show_bug.cgi?id=2044304[*BZ#2044304*])
 
 * If a `ClusterGroupUpgrade` CR has a `blockingCR` specified, and that `blockingCR` fails silently, for example if there is a typo in the list of clusters, the `ClusterGroupUpgrade` CR is applied even though the `blockingCR` is not applied in the cluster.
