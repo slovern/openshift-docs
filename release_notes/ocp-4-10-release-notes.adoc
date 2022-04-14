@@ -1188,7 +1188,7 @@ In the `SiteConfig` file:
     * Three-node clusters must have exactly three entries defined in the `nodes` section.
     * Standard OpenShift clusters must have exactly three entries in the `nodes` section with role: master and one or more additional entries with role: worker.
 
-The `PolicyGenTemplate` file tells the Policy Generator where to categorize the generated policies. Example `PolicyGenTemplate` files provide you with example files to simplify your deployments: 
+The `PolicyGenTemplate` file tells the Policy Generator where to categorize the generated policies. Example `PolicyGenTemplate` files provide you with example files to simplify your deployments:
 
 * The example common `PolicyGenTemplate` file is common across all types of clusters.
 * Example group `PolicyGenTemplate` files for single node, three-node, and standard clusters are provided.
@@ -2673,6 +2673,8 @@ supports-priv-flags: yes
 
 * During a spoke cluster upgrade from 4.9 to 4.10, with heavy workload running, the `kube-apiserver` pod can take longer than the expected time to start. As a result, the upgrade does not complete and the `kube-apiserver` rolls back to the previous version.
 (link:https://bugzilla.redhat.com/show_bug.cgi?id=2064024[*BZ#2064024*])
+
+* If you deploy the AMQ Interconnect Operator, pods run on IPv4 nodes only. The AMQ Interconnect Operator is not supported on IPv6 nodes. (link:https://issues.redhat.com/browse/ENTMQIC-3297[*ENTMQIC-3297*])
 
 [id="ocp-4-10-asynchronous-errata-updates"]
 == Asynchronous errata updates
