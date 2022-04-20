@@ -2622,13 +2622,10 @@ and recreate it without a BFD profile. (link:https://bugzilla.redhat.com/show_bu
 * Currently, for `ClusterGroupUpgrade` CR state changes, there is only a single condition type available - `Ready`. The `Ready` condition can have a status of `True` or `False` only. This does not reflect the range of states the `ClusterGroupUpgrade` CR can be in.
 (link:https://bugzilla.redhat.com/show_bug.cgi?id=2042596[*BZ#2042596*])
 
-* The alpha channel for the PTP Operator reports an error that prevents a `PtpConfig` CR from being applied when the `summary_interval` value does not match the value set for `logSyncInterval`. To work around this issue, update all reference PTP configurations to set `summary_interval` and `logSyncInterval` to -4.
-(link:https://bugzilla.redhat.com/show_bug.cgi?id=2040799[*BZ#2040799*])
-
 * When deploying a multi-node cluster on bare-metal nodes, the machine config pool (MCP) adds an additional CRI-O drop-in that circumvents the link:https://github.com/openshift-kni/cnf-features-deploy/blob/master/cnf-tests/README.md#container-mount-namespace[container mount namespace drop-in]. This results in CRI-O being in the base namespace while the kubelet is in the hidden namespace. All containers fail to get any kubelet-mounted filesystems, such as secrets and tokens.
 (link:https://bugzilla.redhat.com/show_bug.cgi?id=2028590[*BZ#2028590*])
 
-* Installing {rh-rhacm} 2.5.0 in the `ocm` namespace causes the `infrastructure-operator` pod to fail due to insufficient privileges.
+* Installing {rh-rhacm} 2.5.0 in the customized namespace causes the `infrastructure-operator` pod to fail due to insufficient privileges.
 (link:https://bugzilla.redhat.com/show_bug.cgi?id=2046554[*BZ#2046554*])
 
 * {product-title} limits object names to 63 characters. If a policy name defined in a `PolicyGenTemplate` CR approaches this limit, the Topology Aware Lifecycle Operator cannot create child policies. When this occurs, the parent policy will remain in a `NonCompliant` state.
@@ -2650,26 +2647,6 @@ sigs.k8s.io/controller-runtime/pkg/internal/controller.(*Controller).Start.func2
 ----
 +
 (link:https://bugzilla.redhat.com/show_bug.cgi?id=2043301[*BZ#2043301*])
-
-* In {product-title} 4.10, `linxptp` daemon usage has more than doubled since earlier measurements in version 4.9. For an ordinary clock PTP configuration using the Intel e810 NIC, CPU usage approaches 45 mc. No faults are recorded in the logs. These results are found with the following NIC configuration:
-+
-[source,terminal]
-----
-NIC
-ethtool -i ens1f0
-driver: ice
-version: 4.18.0-305.34.2.rt7.107.el8_4.x
-firmware-version: 3.00 0x80008278 1.2992.0
-expansion-rom-version:
-bus-info: 0000:8a:00.0
-supports-statistics: yes
-supports-test: yes
-supports-eeprom-access: yes
-supports-register-dump: yes
-supports-priv-flags: yes
-----
-+
-(link:https://bugzilla.redhat.com/show_bug.cgi?id=2050994[*BZ#2050994*])
 
 * During a spoke cluster upgrade from 4.9 to 4.10, with heavy workload running, the `kube-apiserver` pod can take longer than the expected time to start. As a result, the upgrade does not complete and the `kube-apiserver` rolls back to the previous version.
 (link:https://bugzilla.redhat.com/show_bug.cgi?id=2064024[*BZ#2064024*])
