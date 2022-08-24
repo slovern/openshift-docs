@@ -88,6 +88,13 @@ xref:../updating/updating-hardware-on-nodes-running-on-vsphere.adoc#updating-har
 * xref:../updating/updating-hardware-on-nodes-running-on-vsphere.adoc#updating-virtual-hardware-on-vsphere_updating-hardware-on-nodes-running-in-vsphere[Updating virtual hardware on vSphere]
 * xref:../updating/updating-hardware-on-nodes-running-on-vsphere.adoc#scheduling-virtual-hardware-update-on-vsphere_updating-hardware-on-nodes-running-in-vsphere[Scheduling an update for virtual hardware on vSphere]
 
+[id="updating-clusters-sro"]
+== Updating a cluster that includes the SRO
+
+xref:../updating/updating-clusters-sro[Updating a cluster that includes the SRO]: When updating a cluster that includes the SRO, it is important to consider whether the new kernel module version will be compatible with the kernel modules currently loaded by the SRO. You can run a preflight check to confirm that the SRO will be able to upgrade the kernel modules. For more information, see the following:
+
+* xref:../updating/updating-clusters-sro#update-upgrading-sro[Running a preflight check for the SRO]
+
 [IMPORTANT]
 ====
 Using hardware version 13 for your cluster nodes running on vSphere is now deprecated. This version is still fully supported, but support will be removed in a future version of {product-title}. Hardware version 15 is now the default for vSphere virtual machines in {product-title}.

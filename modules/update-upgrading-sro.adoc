@@ -1,0 +1,75 @@
+// Module included in the following assemblies:
+//
+// * updating/updating-clusters-sro.adoc
+
+:_content-type: PROCEDURE
+[id="updating-eus-to-eus-upgrade_{context}"]
+= Running a preflight check for the SRO
+
+The following is an example procedure for checking the compatibility of a kernel module version before upgrading a cluster.
+
+.Prerequisites
+
+* You have a running OpenShift Container Platform cluster.
+* You installed the OpenShift CLI (oc).
+* You are logged into the OpenShift CLI as a user with cluster-admin privileges.
+* You installed the SRO.
+
+.Procedure
+
+. Create the following CRD and save the YAML as `prevalidation.yaml`.+
+[source,yaml]
+----
+apiVersion: sro.openshift.io/v1beta1
+kind: PreflightValidation
+metadata:
+ name: preflight
+ namespace: preflight
+spec:
+ updateImage: quay.io/openshift-release-dev/ocp-release@sha256:f7f252c39b64601c8ac3de737a584ba4f6016b1f4b17801d726ca2fd15492878 <1>
+----
+<1> Specify the name of the upgrade image here
+
+. Start the validation check by running the following command:
+[source,terminal]
+----
+$ oc apply -f prevalidation.yaml
+----
+
+.Verification
+. Check the status of the CR by running the following command:
++
+[source,terminal]
+----
+$ oc describe preflightvalidations.sro.openshift.io/v1beta1 preflight
+----
++
+.Example output
++
+[source,terminal]
+----
+Status:
+  Cr Statuses:
+    Last Transition Time:  2022-08-02T08:48:45Z
+    Name:                  simple-oot
+    Status Reason:         Verification successful, all driver-containers for the next kernel version are present
+    Verification Stage:    Image
+    Verification Status:   True
+Events:                    <none>
+----
+The possible CR statuses are as follows:
+`True`:: The SRO CR will upgrade without kernel compatibility issues.
+`False`:: There is an issue with kernel compatibility for the CR. The Status Reason field provides additional information on this.
+`Error`:: The status check was not completed due to an internal error. The Status Reason field provides additional information on debugging this.
+`Unknown`:: The check has not yet verified the status of the CR. This may be because the process has not yet reached the specific CR or not enough time has elapsed for the check to complete.
++
+The possible Verification Status values are as follows:
+`True`:: The image exists and is compatible or the image does not exist but there is a BuildConfig in place.
+`False`:: The image does not exist and there is no BuildConfig in place or an image exists but is not compatible with the new kernel version.
++
+If the status is false, you can do one of the following:
++
+* Create a prebuilt image with the correct name and check the status field again.
+* Change the CR to include a BuildConfig.
++
+The preflight check continues to run until all CRs are verified. You can repeat the above command to check the status. Once all CRs are verified, you should delete the preflight CR.

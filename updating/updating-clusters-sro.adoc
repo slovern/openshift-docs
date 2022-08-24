@@ -1,0 +1,11 @@
+:_content-type: ASSEMBLY
+[id="updating-clusters-sro"]
+= Updating a cluster that includes the SRO
+include::_attributes/common-attributes.adoc[]
+:context: updating-clusters-sro
+
+toc::[]
+
+When updating a cluster that includes the SRO, it is important to consider whether the new kernel module version will be compatible with the kernel modules currently loaded by the SRO. You can run a preflight check to confirm that the SRO will be able to upgrade the kernel modules.
+
+include::modules/update-upgrading-sro.adoc[leveloffset=+1]
