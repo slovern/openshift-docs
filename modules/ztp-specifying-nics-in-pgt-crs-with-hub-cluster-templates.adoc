@@ -7,12 +7,11 @@
 = Specifying group and site configuration in group PolicyGenTemplate CRs with hub templates
 
 You can manage the configuration of fleets of clusters with `ConfigMap` CRs by using hub templates to populate the group and site values in the generated policies that get applied to the managed clusters.
-Using hub templates in site `PolicyGenTemplate` (PGT) CRs means that you do not need to create single-site `PolicyGenTemplate` CRs for each site.
+Using hub templates in site `PolicyGenTemplate` (PGT) CRs means that you do not need to create a `PolicyGenTemplate` CR for each site.
 
 You can group the clusters in a fleet in various categories, depending on the use case, for example, hardware type or region. 
-Each cluster should have a label corresponding to the group(s) the cluster is in. 
-If the configuration values for each group are kept in different `ConfigMap` CRs, you require just one group `PolicyGenTemplate` CR using hub templates, and the cluster’s name and labels, to retrieve the values for each cluster.
-
+Each cluster should have a label corresponding to the group(s) that the cluster is in. 
+If you manage the configuration values for each group in different `ConfigMap` CRs, then you require just one group `PolicyGenTemplate` CR to apply the changes to all the custers in the group by using hub tremplates.
 
 The following example shows you how to use three `ConfigMap` CRs and one group `PolicyGenTemplate` CR to apply both site and group configuration to clusters grouped by hardware type and region.
 
@@ -34,7 +33,7 @@ The repository must be accessible from the hub cluster and be defined as a sourc
 
 . Create three `ConfigMap` CRs that contain the group and site configuration. 
 +
-.. Create `group-hardware-types-configmap`, a `ConfigMap` to hold the hardware specific configuration. For example:
+.. Create a `ConfigMap` CR named `group-hardware-types-configmap` to hold the hardware-specific configuration. For example:
 +
 [source,yaml]
 ----
@@ -59,7 +58,7 @@ data:
 ----
 <1> The `argocd.argoproj.io/sync-options` annotation is required only if the `ConfigMap` is larger than 1 MiB in size.
 
-.. Create `group-zones-configmap`, a `ConfigMap` to hold the regional configuration. For example:
+.. Create a `ConfigMap` CR named `group-zones-configmap` to hold the regional configuration. For example:
 +
 [source,yaml]
 ----
@@ -75,7 +74,7 @@ data:
   zone-1-cluster-log-fwd-pipelines: "[{\"inputRefs\":[\"audit\", \"infrastructure\"], \"labels\": {\"label1\": \"test1\", \"label2\": \"test2\", \"label3\": \"test3\", \"label4\": \"test4\"}, \"name\": \"all-to-default\", \"outputRefs\": [\"kafka-open\"]}]"
 ----
 
-.. Create `site-data-configmap`, a `ConfigMap` to hold the site specific configuration. For example:
+.. Create a `ConfigMap` CR named `site-data-configmap` to hold the site-specific configuration. For example:
 +
 [source,yaml]
 ----
@@ -93,7 +92,7 @@ data:
 +
 [NOTE]
 ====
-Each `ConfigMap` must be in the same namespace as the policy to be generated from the group `PolicyGenTemplate` CR that is using hub templates.
+Each `ConfigMap` CR must be in the same namespace as the policy to be generated from the group `PolicyGenTemplate` CR.
 ====
 
 . Commit the `ConfigMap` CRs in Git, and then push to the Git repository being monitored by the Argo CD application.
@@ -199,7 +198,7 @@ To retrieve site-specific configuration values, use the `.ManagedClusterName` fi
 This is a template context value set to the name of the target managed cluster.
 
 To retrieve group-specific configuration, use the `.ManagedClusterLabels` field. 
-This is a template context value set to the value of the managed cluster’s labels.
+This is a template context value set to the value of the managed cluster's labels.
 ====
 
 . Commit the site `PolicyGenTemplate` CR in Git and push to the Git repository that is monitored by the ArgoCD application.
